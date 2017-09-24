@@ -47,6 +47,12 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
+                        <li>
+                            <a href="#">Mi carrito
+                                <span class="circle-shopping-cart">
+                                {{ $shopping_cart->productSize() }}
+                            </span></a>
+                        </li>
                         @guest
                             <li><a href="{{ route('login') }}" style="color: #EEE;">Login</a></li>
                             <li><a href="{{ route('register') }}" style="color: #EEE;">Register</a></li>
