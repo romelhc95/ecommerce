@@ -8,8 +8,16 @@ class ShoppingCart extends Model
 {
     protected $fillable = ['status'];
 
+    public function in_shopping_carts(){
+        return $this->hasMany('App\InShoppingCart');
+    }
+
+    public function products(){
+        return $this->belongsToMany('App\Product', 'in_shopping_carts');
+    }
+
     public function productSize(){
-        return $this->id;
+        return $this->products()->count();
     }
 
     public static function findOrCreateBySessionID($shopping_cart_id){
