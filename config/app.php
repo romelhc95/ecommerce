@@ -169,7 +169,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        App\Providers\ShoppingCartProvider::class,
         /*
          * Application Service Providers...
          */
