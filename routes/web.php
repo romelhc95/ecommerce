@@ -16,10 +16,11 @@
 //});
 
 Route::get('/', 'MainController@home');
+Route::get('/carrito', 'ShoppingCartsController@index');
+Route::get('/payments/store', 'PaymentsController@store');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('products', 'ProductsController');
-Route::resource('in_shopping_carts', 'InShoppingCartsController', [
-    'only'=> ['store', 'destroy']]);
+Route::resource('in_shopping_carts', 'InShoppingCartsController', ['only'=> ['store', 'destroy']]);

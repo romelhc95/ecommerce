@@ -8,7 +8,7 @@ class ShoppingCart extends Model
 {
     protected $fillable = ['status'];
 
-    public function in_shopping_carts(){
+    public function inShoppingCarts(){
         return $this->hasMany('App\InShoppingCart');
     }
 
@@ -16,8 +16,17 @@ class ShoppingCart extends Model
         return $this->belongsToMany('App\Product', 'in_shopping_carts');
     }
 
-    public function productSize(){
+    public function productsSize(){
         return $this->products()->count();
+    }
+
+    public function total(){
+        //metodo sum() suma todos los productos de la tabla productos
+        return $this->products()->sum("pricing");
+    }
+
+    public function totalUSD(){
+        return $this->products()->sum("pricing") / 100;
     }
 
     public static function findOrCreateBySessionID($shopping_cart_id){

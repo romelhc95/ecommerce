@@ -48,9 +48,10 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         <li>
-                            <a href="#">Mi carrito
+                            <a href="{{ url('/carrito') }}">Mi carrito
                                 <span class="circle-shopping-cart">
-                                {{ $shopping_cart->productSize() }}
+                                {{--{{ $shopping_cart->productsSize() }}--}}
+                                    {{$productsCount}}
                             </span></a>
                         </li>
                         @guest

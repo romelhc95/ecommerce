@@ -6,5 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class InShoppingCart extends Model
 {
+    protected $fillable = ['product_id','shopping_cart_id'];
 
+    /**
+     * @param $shopping_cart_id
+     * @return int
+     */
+    public static function productsCount($shopping_cart_id) {
+        return InShoppingCart::where("shopping_cart_id",$shopping_cart_id)->count();
+    }
 }
