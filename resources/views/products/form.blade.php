@@ -4,7 +4,7 @@
         {!! Form::text('title', $product->title, ['class'=>'form-control', 'placeholder'=>'TITULO DEL PRODUCTO']) !!}
     </div>
     <div class="form-group">
-        {!! Form::number('pricing', $product->pricing, ['class'=>'form-control', 'placeholder'=>'PRECIO DEL PRODUCTO']) !!}
+        {!! Form::number('pricing', $product->pricing, ['class'=>'form-control', 'step'=>'0.01', 'placeholder'=>'PRECIO DEL PRODUCTO']) !!}
     </div>
     <div class="form-group">
         {!! Form::textarea('description', $product->description, ['class'=>'form-control', 'placeholder'=>'DESCRIPCION DEL PRODUCTO']) !!}

@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Paypal;
-use App\ShoppingCart;
+use App\Order;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
-class ShoppingCartsController extends Controller
+class OrdersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,20 +14,14 @@ class ShoppingCartsController extends Controller
      */
     public function index()
     {
-        $shopping_cart_id = Session::get('shopping_cart_id');
-        $shopping_cart = ShoppingCart::findOrCreateBySessionID($shopping_cart_id);
-
-        $paypal = new Paypal($shopping_cart);
-        $payment = $paypal->generate();
-        return redirect($payment->getApprovalLink());
-
-//        $products = $shopping_cart->products()->get();
-//        $total = $shopping_cart->total();
-//
-//        return view("shopping_carts.index", [
-//            'products'  => $products,
-//            'total'     => $total
-//        ]);
+        $orders = Order::latest()->get();
+        $totalMonth = Order::totalMonth();
+        $totalMonthCount = Order::totalMonthCount();
+        return view('orders.index', [
+            'orders' => $orders,
+            'totalMonth' => $totalMonth,
+            'totalMonthCount' => $totalMonthCount
+        ]);
     }
 
     /**
@@ -61,9 +53,7 @@ class ShoppingCartsController extends Controller
      */
     public function show($id)
     {
-        $shopping_cart = ShoppingCart::where('customid', $id)->first();
-        $order = $shopping_cart->order();
-        return view("shopping_carts.completed", ["shopping_cart" => $shopping_cart, "order" => $order]);
+        //
     }
 
     /**
@@ -86,7 +76,12 @@ class ShoppingCartsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order = Order::find($id);
+        $field = $request->name;
+        $order->$field = $request->value;
+        $order->save();
+
+        return $order->$field;
     }
 
     /**

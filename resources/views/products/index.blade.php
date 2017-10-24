@@ -2,18 +2,18 @@
 
 @section('content')
     <div class="big-padding text-center blue-grey white-text">
-        <h1>Productos</h1>
+        <h1>PRODUCTOS</h1>
     </div>
     @include('flash::message')
     <div class="container">
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <td>Id</td>
-                    <td>Titulo</td>
-                    <td>Description</td>
-                    <td>Precio</td>
-                    <td>Opciones</td>
+                    <td><b>ID</b></td>
+                    <td><b>TITULO</b></td>
+                    <td><b>DESCRIPCIÓN</b></td>
+                    <td style="width: 100px;"><b>PRECIO</b></td>
+                    <td><b>OPCIONES</b></td>
                 </tr>
             </thead>
             @foreach($products as $product)
