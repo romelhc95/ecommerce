@@ -9,27 +9,30 @@ use Illuminate\Support\Facades\Session;
 
 class ShoppingCartsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("shoppingcart");
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $shopping_cart_id = Session::get('shopping_cart_id');
-        $shopping_cart = ShoppingCart::findOrCreateBySessionID($shopping_cart_id);
+        $shopping_cart = $request->shopping_cart;
+//        $paypal = new Paypal($shopping_cart);
+//        $payment = $paypal->generate();
+//        return redirect($payment->getApprovalLink());
 
-        $paypal = new Paypal($shopping_cart);
-        $payment = $paypal->generate();
-        return redirect($payment->getApprovalLink());
+        $products = $shopping_cart->products()->get();
+        $total = $shopping_cart->total();
 
-//        $products = $shopping_cart->products()->get();
-//        $total = $shopping_cart->total();
-//
-//        return view("shopping_carts.index", [
-//            'products'  => $products,
-//            'total'     => $total
-//        ]);
+        return view("shopping_carts.index", [
+            'products'  => $products,
+            'total'     => $total
+        ]);
     }
 
     /**
